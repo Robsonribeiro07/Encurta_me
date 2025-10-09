@@ -1,11 +1,10 @@
 'use client'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useMemo } from 'react'
+import { useRouter } from 'next/navigation'
+import { useMemo, useCallback } from 'react'
 import { useGetSearchParams } from './use-get-search-params'
 import { useGetAllLinks } from '@/api/services/link/hooks/use-get-all-links'
 
 export function usePagination() {
-  const searchParams = useSearchParams()
   const { currentPage } = useGetSearchParams()
   const { push } = useRouter()
 
@@ -15,8 +14,8 @@ export function usePagination() {
 
   const { pages, hasNextPage, hasPreviousPage } = useMemo(() => {
     const pages: number[] = []
-    const start = Math.max(1, currentPage ?? 1 - 2)
-    const end = Math.min(totalPages, currentPage + 2)
+    const start = Math.max(1, (currentPage ?? 1) - 2)
+    const end = Math.min(totalPages, (currentPage ?? 1) + 2)
 
     for (let i = start; i <= end; i++) {
       pages.push(i)
@@ -28,11 +27,15 @@ export function usePagination() {
       hasPreviousPage: (currentPage ?? 1) > 1,
     }
   }, [currentPage, totalPages])
-  const goToPage = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString())
-    params.set('page', page.toString())
-    return push(`?${params.toString()}`, { scroll: false })
-  }
+  
+  const goToPage = useCallback((page: number) => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search)
+      params.set('page', page.toString())
+      return push(`?${params.toString()}`, { scroll: false })
+    }
+  }, [push])
+  
   return {
     pages,
     goToPage,

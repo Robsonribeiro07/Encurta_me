@@ -36,7 +36,7 @@ export async function getAllShortenLinksHelpers({
   page = 1,
   limit = 10,
   filter = 'all',
-  filterInput,
+  filterInput = undefined,
 }: ICreateShortenLinkProps): Promise<IGetAllShortenResult> {
   try {
     const response = await api.get(

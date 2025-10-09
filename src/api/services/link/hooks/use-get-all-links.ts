@@ -1,3 +1,4 @@
+'use client'
 import { ShortenService } from '@/api/services/link/Shorten-service'
 import { useGetSearchParams } from '@/hooks/links/use-get-search-params'
 import { useAuth } from '@clerk/nextjs'
