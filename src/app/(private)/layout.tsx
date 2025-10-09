@@ -12,9 +12,9 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
     <div className="h-screen w-screen bg-background flex flex-col m-0 px-0">
       <Header />
 
-      <div className="flex-1 flex min-h-0">
+      <div className="flex-1 flex min-h-screen h-screen">
         <NavContent />
-        <main className="flex-1 overflow-auto ">{children}</main>
+        <main className="flex-1 overflow-auto  ">{children}</main>
       </div>
     </div>
   )

@@ -1,4 +1,3 @@
-import { useGetAllLinks } from '@/api/hooks/use-get-all-links'
 import {
   Pagination,
   PaginationContent,

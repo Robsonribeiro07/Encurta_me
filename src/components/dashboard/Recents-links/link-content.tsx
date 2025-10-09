@@ -1,4 +1,3 @@
-import { useGetAllLinks } from '@/api/hooks/use-get-all-links'
 import { TableBody, TableCell, TableRow } from '@/components/ui/table'
 import Link from 'next/link'
 import { formatDistanceToNow } from 'date-fns'
@@ -9,6 +8,8 @@ import { StatusLink } from './status-link'
 import { toast } from 'sonner'
 import { CoppyButton } from '@/components/coppy-button'
 import { Actions } from './actions'
+import { useGetAllLinks } from '@/api/services/link/hooks/use-get-all-links'
+import { getUrlBackend } from '@/utils/get-url-backend'
 export function LinkContent() {
   const { links } = useGetAllLinks()
 
@@ -35,13 +36,13 @@ export function LinkContent() {
             {link.status === 'active' ? (
               <div className="flex items-center gap-2 relative">
                 <Link
-                  href={`http://localhost:8081/${link.shortenedUrl}`}
+                  href={`${getUrlBackend()}/${link.shortenedUrl}`}
                   target="_blank"
                   rel="noreferrer"
                 >
                   {link.shortenedUrl}
                 </Link>
-                <CoppyButton text={`http://localhost:8081/${link.shortenedUrl}`} />
+                <CoppyButton text={`${getUrlBackend()}/${link.shortenedUrl}`} />
               </div>
             ) : (
               link.shortenedUrl

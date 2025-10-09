@@ -5,14 +5,14 @@ import { useQuery } from '@tanstack/react-query'
 
 export function useGetAllLinks() {
   const { getToken } = useAuth()
-  const { currentPage, filter } = useGetSearchParams()
+  const { currentPage, filter, filterInput } = useGetSearchParams()
 
   const { data } = useQuery({
-    queryKey: ['links', currentPage, filter],
+    queryKey: ['links', currentPage, filter, filterInput],
     queryFn: async () => {
       const token = await getToken()
       const Shorten = new ShortenService(token)
-      return Shorten.getAllLinks(currentPage, filter)
+      return Shorten.getAllLinks(currentPage, filter, filterInput)
     },
   })
 

@@ -7,7 +7,6 @@ export function useGetAllNotification() {
   const { getToken } = useAuth()
   const { currentPage, limits, filter } = usePaginationNotificationStore()
 
-  console.log(currentPage, limits, filter)
   const { data, isLoading, error } = useQuery({
     queryKey: ['get-all-notification', currentPage, limits, filter],
     queryFn: async () => {

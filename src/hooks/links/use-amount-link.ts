@@ -1,5 +1,5 @@
+import { useGetAllLinks } from '@/api/services/link/hooks/use-get-all-links'
 import { useMemo } from 'react'
-import { useGetAllLinks } from '../../api/hooks/use-get-all-links'
 
 interface IUseAmountLinkReturn {
   totalClicks: number

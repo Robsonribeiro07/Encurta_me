@@ -7,6 +7,7 @@ interface ICreateShortenLinkProps {
   page?: number
   limit?: number
   filter?: filter
+  filterInput?: string
 }
 
 export interface IShortenedUrlResponse {
@@ -35,10 +36,11 @@ export async function getAllShortenLinksHelpers({
   page = 1,
   limit = 10,
   filter = 'all',
+  filterInput,
 }: ICreateShortenLinkProps): Promise<IGetAllShortenResult> {
   try {
     const response = await api.get(
-      `/links/all-shorten?page=${page}&limit=${limit}&filter=${filter}`,
+      `/links/all-shorten?page=${page}&limit=${limit}&filter=${filter}&filterInput=${filterInput}`,
     )
 
     return response.data

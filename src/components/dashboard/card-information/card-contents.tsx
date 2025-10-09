@@ -1,6 +1,6 @@
 import { useAmountLink } from '@/hooks/links/use-amount-link'
-import { CardInformation } from './card-'
-import { useGetAllLinks } from '@/api/hooks/use-get-all-links'
+import { CardInformation } from './card'
+import { useGetAllLinks } from '@/api/services/link/hooks/use-get-all-links'
 
 export function CardContents() {
   const { clickAverage, conversionRate } = useAmountLink()

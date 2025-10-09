@@ -17,7 +17,7 @@ export class ShortenService {
       api: this.api,
     })
   }
-  async getAllLinks(page?: number, filter?: filter, limit?: number) {
-    return await getAllShortenLinksHelpers({ api: this.api, page, limit, filter })
+  async getAllLinks(page?: number, filter?: filter, filterInput?: string, limit?: number) {
+    return await getAllShortenLinksHelpers({ api: this.api, page, limit, filter, filterInput })
   }
 }

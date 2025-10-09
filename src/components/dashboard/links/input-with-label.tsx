@@ -1,6 +1,6 @@
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { IRequiredInputsProps } from '@/hooks/links/use-form-new-link'
+import { IRequiredInputsProps } from '@/hooks/links/use-form-create-shorten'
 
 export function InputWithLabel({ register, label, placeholder, type, name }: IRequiredInputsProps) {
   return (

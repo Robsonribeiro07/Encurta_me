@@ -2,7 +2,7 @@
 import { Link } from 'lucide-react'
 import { InputWithLabel } from './input-with-label'
 import { Button } from '@/components/ui/button'
-import { useFormNewLink } from '@/hooks/links/use-form-new-link'
+import { useFormNewLink } from '@/hooks/links/use-form-create-shorten'
 import { FeedbackError } from './feedback-error'
 
 export function CreateNewLink() {

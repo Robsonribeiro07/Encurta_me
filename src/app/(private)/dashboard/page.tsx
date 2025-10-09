@@ -1,22 +1,34 @@
 'use client'
-import { CardInformation } from '@/components/dashboard/card-information/card-'
 import { CardContents } from '@/components/dashboard/card-information/card-contents'
 import LinkAnimation from '@/components/dashboard/link-animation'
 import { CreateNewLink } from '@/components/dashboard/links/create-new-link'
-import { useGetAllLinks } from '@/api/hooks/use-get-all-links'
-import { useAuth } from '@clerk/nextjs'
 import { RecentsContentCard } from '@/components/dashboard/Recents-links/recents-content'
 import { useGetAllNotification } from '@/api/services/user/notification/hooks/use-get-all-notification'
+import { useGetSearchParams } from '@/hooks/links/use-get-search-params'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Dashboard() {
-  const { links } = useGetAllLinks()
   const { notifications } = useGetAllNotification()
+  const { filterInput } = useGetSearchParams()
 
-  console.log(notifications)
   return (
-    <div className="lflex flex-1 flex-col p-8">
-      <CreateNewLink />
-      <CardContents />
+    <div className="flex flex-1 flex-col p-8 z-10">
+      <AnimatePresence>
+        {!filterInput && (
+          <motion.div
+            key="topContent"
+            className="z-10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+          >
+            <CreateNewLink />
+            <CardContents />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <RecentsContentCard />
 
       <LinkAnimation url="https://prod.spline.design/wv0sXCxwKzzbLGgJ/scene.splinecode" />

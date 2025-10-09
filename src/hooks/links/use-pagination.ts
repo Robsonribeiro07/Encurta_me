@@ -1,8 +1,8 @@
 'use client'
-import { useGetAllLinks } from '@/api/hooks/use-get-all-links'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useMemo } from 'react'
 import { useGetSearchParams } from './use-get-search-params'
+import { useGetAllLinks } from '@/api/services/link/hooks/use-get-all-links'
 
 export function usePagination() {
   const searchParams = useSearchParams()
