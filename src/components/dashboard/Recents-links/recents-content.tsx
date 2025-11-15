@@ -8,7 +8,7 @@ export function RecentsContentCard() {
   const { filterInput } = useGetSearchParams()
 
   return (
-    <div className="w-full mt-10 flex flex-col justify-end z-10">
+    <div className="w-full min-h-[10vh] mt-10 flex flex-col justify-end z-10">
       <motion.div
         initial={{ height: 0 }}
         animate={{ height: filterInput ? 'auto' : 'auto', origin: 'bottom' }}

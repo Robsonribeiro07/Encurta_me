@@ -12,7 +12,14 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden;
+  overflow-y: scroll !important;
+  scrollbar-width: none !important;
+  overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+}
+
+::-webkit-scrollbar {
+  display: none !important;
 }
 
 @theme inline {
