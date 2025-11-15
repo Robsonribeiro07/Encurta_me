@@ -9,10 +9,10 @@ import { useGetSearchParams } from '@/hooks/links/use-get-search-params'
 export function OptionsContent() {
   const { handleSetFilterInputParams, filterInput } = useGetSearchParams()
   return (
-    <div className="flex flex-row gap-2  max-sm:sr-only">
+    <div className="flex flex-row gap-2  ">
       <Input
         value={filterInput}
-        className="bg-sidebar placeholder:text-sidebar-primary"
+        className="bg-sidebar placeholder:text-sidebar-primary  max-sm:sr-only"
         placeholder=" Pesquisa por links"
         onChange={(e) => handleSetFilterInputParams(e.target.value)}
       />
