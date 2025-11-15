@@ -2,6 +2,8 @@ import api from '@/lib/axios'
 import { AxiosInstance } from 'axios'
 import { createShortenLinkHelper, ICreateShortenLinkProps } from './helpers/create-shorten'
 import { filter, getAllShortenLinksHelpers } from './helpers/get-all-shorten'
+import { editShortenLinkHelper, IEditShortenLinkProps } from './helpers/edit-shorten'
+import { deleteShortenLinkHelper, IDeleteShortenProps } from './helpers/delete-shorten'
 
 export class ShortenService {
   private api: AxiosInstance
@@ -19,5 +21,17 @@ export class ShortenService {
   }
   async getAllLinks(page?: number, filter?: filter, filterInput?: string, limit?: number) {
     return await getAllShortenLinksHelpers({ api: this.api, page, limit, filter, filterInput })
+  }
+  async editShorten(data: IEditShortenLinkProps) {
+    return await editShortenLinkHelper({
+      ...data,
+      api: this.api,
+    })
+  }
+  async deleteShortren(data: IDeleteShortenProps) {
+    return await deleteShortenLinkHelper({
+      ...data,
+      api: this.api,
+    })
   }
 }

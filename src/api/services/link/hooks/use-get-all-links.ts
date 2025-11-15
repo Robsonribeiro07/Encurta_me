@@ -8,7 +8,7 @@ export function useGetAllLinks() {
   const { getToken } = useAuth()
   const { currentPage, filter, filterInput } = useGetSearchParams()
 
-  const { data } = useQuery({
+  const { data, isFetched } = useQuery({
     queryKey: ['links', currentPage, filter, filterInput],
     queryFn: async () => {
       const token = await getToken()
@@ -19,5 +19,6 @@ export function useGetAllLinks() {
 
   return {
     links: data,
+    isFetched,
   }
 }

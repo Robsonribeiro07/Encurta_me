@@ -2,22 +2,22 @@
 import { toast } from 'sonner'
 import { NotificationService } from '@/api/services/user/notification/notification-service'
 import { playSoundNotification } from './play-sound'
-import { QueryClient } from '@tanstack/react-query'
 import { usePaginationNotificationStore } from '@/store/notification/use-pagination-store'
-import { IGetAllNotificationResponse } from '@/api/services/user/notification/helpers/get-all-notification'
 
 export class LinkNotifier {
   constructor(private service: NotificationService) {}
 
-  async success(link: string, userId?: string) {
+  async success(link: string, method: 'create' | 'update' | 'delete' = 'create', userId?: string) {
     const { currentPage, limits, filter } = usePaginationNotificationStore.getState()
 
     playSoundNotification('success')
 
     const newMessage = {
-      message: `Link ${link} criado com sucesso!`,
+      message: `Link ${link} ${
+        method == 'create' ? 'Criado' : method == 'delete' ? 'Deletado' : 'Editado'
+      } com sucesso!`,
       type: 'success',
-      title: 'Link criado',
+      title: 'Link Editado',
       userId,
       link: `${process.env.NEXT_PUBLIC_URL_API}/${link}`,
     } as const
@@ -31,14 +31,21 @@ export class LinkNotifier {
       ...newMessage,
     })
 
-    toast.success('Link encurtado com sucesso!', {
-      richColors: true,
-      duration: 4000,
-      action: {
-        label: link,
-        onClick: () => window.open(`${process.env.NEXT_PUBLIC_URL_API}/${link}`, '_blank'),
+    toast.success(
+      method == 'create'
+        ? 'Link encurtado com sucesso!'
+        : method == 'delete'
+        ? 'Link deletado com sucesso'
+        : 'Link Editado com sucesso!',
+      {
+        richColors: true,
+        duration: 4000,
+        action: {
+          label: link,
+          onClick: () => window.open(`${process.env.NEXT_PUBLIC_URL_API}/${link}`, '_blank'),
+        },
       },
-    })
+    )
   }
 
   async error(link?: string, errorMessage?: string) {

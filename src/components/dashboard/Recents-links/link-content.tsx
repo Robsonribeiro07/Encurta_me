@@ -2,39 +2,64 @@ import { TableBody, TableCell, TableRow } from '@/components/ui/table'
 import Link from 'next/link'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { Eye } from 'lucide-react'
+import { Copy, Eye } from 'lucide-react'
 import { LoadingTable } from './loading-table'
 import { StatusLink } from './status-link'
 import { toast } from 'sonner'
-import { CoppyButton } from '@/components/coppy-button'
 import { Actions } from './actions'
 import { useGetAllLinks } from '@/api/services/link/hooks/use-get-all-links'
 import { getUrlBackend } from '@/utils/get-url-backend'
-export function LinkContent() {
-  const { links } = useGetAllLinks()
+import { useCopyToClipboard } from '@/components/coppy-button'
 
-  return links ? (
+export function LinkContent() {
+  const { links, isFetched } = useGetAllLinks()
+  const { copy } = useCopyToClipboard()
+
+  // Se ainda estiver carregando
+  if (!isFetched) {
+    return <LoadingTable />
+  }
+
+  // Se não tiver nenhum link
+  if (!links?.shortenedUrls?.length) {
+    return (
+      <TableBody>
+        <TableRow>
+          <TableCell colSpan={6} className="text-center text-gray-500 py-6">
+            Nenhum link encontrado
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    )
+  }
+
+  // Se houver links
+  return (
     <TableBody>
-      {links.shortenedUrls?.map((link) => (
+      {links.shortenedUrls.map((link) => (
         <TableRow key={link.id}>
-          <TableCell className="max-w-[8rem]">
-            <div className="flex items-center gap-2 relative">
-              {link.originalUrl.slice(0, 35)}...
-              <CoppyButton text={link.originalUrl} />
+          {/* URL original */}
+          <TableCell className="flex flex-1 w-full max-w-[30rem]">
+            <div className="flex items-center gap-2">
+              {link.originalUrl.slice(0, 50)}...
+              <Copy
+                onClick={() => {
+                  copy(link.originalUrl)
+                  toast.success('URL copiada com sucesso!')
+                }}
+                className="cursor-pointer hover:opacity-80"
+              />
             </div>
           </TableCell>
+
+          {/* URL encurtada */}
           <TableCell
-            onClick={() => {
-              if (link.status !== 'active') {
-                toast.info(link.status, { richColors: true })
-              }
-            }}
-            className={`${
+            className={`w-48 ${
               link.status === 'active' ? 'text-purple-500 underline' : 'text-purple-800'
-            } w-48 `}
+            }`}
           >
             {link.status === 'active' ? (
-              <div className="flex items-center gap-2 relative">
+              <div className="flex items-center gap-2">
                 <Link
                   href={`${getUrlBackend()}/${link.shortenedUrl}`}
                   target="_blank"
@@ -42,34 +67,42 @@ export function LinkContent() {
                 >
                   {link.shortenedUrl}
                 </Link>
-                <CoppyButton text={`${getUrlBackend()}/${link.shortenedUrl}`} />
+                <Copy
+                  onClick={() => {
+                    copy(`${getUrlBackend()}/${link.shortenedUrl}`)
+                    toast.success('Link encurtado copiado!')
+                  }}
+                  className="cursor-pointer hover:opacity-80"
+                />
               </div>
             ) : (
               link.shortenedUrl
             )}
           </TableCell>
+
+          {/* Data de criação */}
           <TableCell className="w-48">
             {formatDistanceToNow(new Date(link.createdAt!), {
               addSuffix: true,
-
               locale: ptBR,
             })}
           </TableCell>
 
-          <TableCell className="flex flex-row items-center gap-3 opacity-[0.7]">
+          {/* Cliques */}
+          <TableCell className="flex flex-row items-center gap-3 opacity-70">
             <Eye size={15} color="var(--primary)" />
             {link.clicks}
           </TableCell>
 
+          {/* Status */}
           <TableCell>
             <StatusLink status={link.status} />
           </TableCell>
 
-          <Actions />
+          {/* Ações */}
+          <Actions links={link} />
         </TableRow>
       ))}
     </TableBody>
-  ) : (
-    <LoadingTable />
   )
 }

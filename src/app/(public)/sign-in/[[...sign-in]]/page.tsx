@@ -21,8 +21,8 @@ export default function Page() {
   }
 
   return (
-    <div className="flex-1 flex justify-center items-center relative z-10 overflow-hidden">
-      <div className="z-10 w-full max-w-md md:px-6 pl-2 mr-auto">
+    <div className="flex-1 flex  justify-center items-center relative z-10 overflow-hidden">
+      <div className="z-10 w-full max-w-md md:px-6 pl-2 mr-auto ">
         <SignIn routing="path" path="/sign-in" />
       </div>
 

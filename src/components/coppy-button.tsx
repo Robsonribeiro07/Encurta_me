@@ -1,16 +1,14 @@
+// useCopyToClipboard.ts
 'use client'
-
-import { playSoundNotification } from '@/utils/notification/play-sound'
-import { Copy, CopyPlus } from 'lucide-react'
 import { toast } from 'sonner'
+import { playSoundNotification } from '@/utils/notification/play-sound'
 
-export function CoppyButton({ text }: { text: string }) {
-  const handleCoppy = async () => {
-    await navigator.clipboard.writeText(text).then(() => {
-      toast.success('copiado com sucesso!')
-      playSoundNotification('success')
-    })
+export function useCopyToClipboard() {
+  const copy = async (text: string) => {
+    await navigator.clipboard.writeText(text)
+    toast.success('copiado com sucesso!')
+    playSoundNotification('success')
   }
 
-  return <Copy onClick={handleCoppy} className="absolute right-0" />
+  return { copy }
 }

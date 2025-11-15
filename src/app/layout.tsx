@@ -20,7 +20,7 @@ const jetBrainsMono = JetBrains_Mono({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="h-full" suppressHydrationWarning>
-      <body className={`${poppins.className} h-full m-0 p-0 select-none overflow-hidden`}>
+      <body className={`${poppins.className} h-full flex m-0 p-0 select-none overflow-hidden`}>
         <Providers>{children}</Providers>
       </body>
     </html>

@@ -6,7 +6,10 @@ import { useFormNewLink } from '@/hooks/links/use-form-create-shorten'
 import { FeedbackError } from './feedback-error'
 
 export function CreateNewLink() {
-  const { inputRequiered, handleSubmit, isSubmitting, errors } = useFormNewLink()
+  const { inputRequiered, handleSubmit, isSubmitting, errors } = useFormNewLink({
+    Metod: 'create',
+    requiredCustomUrl: false,
+  })
 
   const [originalUrlInput, customUrlInput, expiresAtInput] = inputRequiered
 

@@ -1,23 +1,34 @@
 import { z } from 'zod'
 
-export const LinkSchema = z.object({
-  originalUrl: z.string().url('Por favor insira uma URL válida').min(1, 'URL é obrigatória'),
-  customUrl: z
-    .union([
-      z
-        .string()
-        .min(3, 'URL customizada deve ter pelo menos 3 caracteres')
-        .regex(
-          /^[a-zA-Z0-9_-]+$/,
-          'URL customizada pode conter apenas letras, números, hífens e underscores',
-        ),
-      z.literal(''), // Permite string vazia
-    ])
-    .optional(),
-  expiresAt: z.string().optional().or(z.literal('')),
-})
+export const createLinkSchema = (requiredCustomUrl: boolean = false) =>
+  z.object({
+    originalUrl: z.string().url('Por favor insira uma URL válida').min(1, 'URL é obrigatória'),
 
-export type LinkFormData = z.infer<typeof LinkSchema>
+    customUrl: requiredCustomUrl
+      ? z
+          .string()
+          .min(3, 'URL customizada deve ter pelo menos 3 caracteres')
+          .regex(
+            /^[a-zA-Z0-9_-]+$/,
+            'URL customizada pode conter apenas letras, números, hífens e underscores',
+          )
+      : z
+          .union([
+            z
+              .string()
+              .min(3, 'URL customizada deve ter pelo menos 3 caracteres')
+              .regex(
+                /^[a-zA-Z0-9_-]+$/,
+                'URL customizada pode conter apenas letras, números, hífens e underscores',
+              ),
+            z.literal(''),
+          ])
+          .optional(),
+
+    expiresAt: z.string().optional(),
+  })
+
+export type LinkFormData = z.infer<ReturnType<typeof createLinkSchema>>
 
 export interface Link {
   id: string

@@ -12,7 +12,7 @@ export const sideBarContent: SiderBartype[] = [
     name: 'Dashboard',
     href: '/dashboard',
   },
-  {
+  /*  {
     Icon: 'Link',
     name: 'Meus Links',
     href: '/links',
@@ -31,5 +31,5 @@ export const sideBarContent: SiderBartype[] = [
     Icon: 'HelpCircle',
     name: 'Ajuda',
     href: '/help',
-  },
+  },*/
 ]
