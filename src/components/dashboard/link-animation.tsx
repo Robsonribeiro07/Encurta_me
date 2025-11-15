@@ -6,7 +6,7 @@ interface LinkAnimationProps {
 }
 export default function LinkAnimation({ url }: LinkAnimationProps) {
   return (
-    <main className="w-full absolute h-screen ">
+    <main className="w-full absolute h-screen max-sm:sr-only">
       <Spline scene={url || 'https://prod.spline.design/SY9mBWaZoxQ0zSr6/scene.splinecode'} />
     </main>
   )
