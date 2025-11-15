@@ -9,7 +9,7 @@ import { useGetSearchParams } from '@/hooks/links/use-get-search-params'
 export function OptionsContent() {
   const { handleSetFilterInputParams, filterInput } = useGetSearchParams()
   return (
-    <div className="flex flex-row gap-2  ">
+    <div className="flex flex-row gap-2 ml-3">
       <Input
         value={filterInput}
         className="bg-sidebar placeholder:text-sidebar-primary  max-sm:sr-only"
