@@ -18,7 +18,7 @@ export function RenderApiWarning() {
           setIsLoading(true)
         }, 4000)
 
-        const response = await axios.put(`${getUrlBackend()}/ping`)
+        const response = await axios.put(`${getUrlBackend()}/Ping/Teste`)
 
         if (response.status === 200) {
           clearTimeout(openPopupTimeout) // resposta rápida → NÃO mostrar popup
