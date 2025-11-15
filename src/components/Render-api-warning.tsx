@@ -25,7 +25,7 @@ export function RenderApiWarning() {
           setIsLoading(false)
         }
       } catch (err) {
-        // Render dormindo → mostrar popup e continuar tentando
+        // Render dormindo → mostrar popup e continuar tentando X
         setIsLoading(true)
         setTimeout(pingAPI, 2000)
       }
