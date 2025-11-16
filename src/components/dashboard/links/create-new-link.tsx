@@ -20,7 +20,7 @@ export function CreateNewLink() {
     >
       <div className="flex items-center gap-2 ">
         <Link color="#9461C1" size={20} />
-        <h1>Criar novo link</h1>
+        <h1 className="font-semibold">Criar novo link</h1>
       </div>
 
       <div className="mt-3 flex  max-sm:flex-col items-center justify-between gap-5  w-full">
